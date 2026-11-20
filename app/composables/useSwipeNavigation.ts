@@ -5,6 +5,7 @@ export function useSwipeNavigation() {
   const SWIPE_THRESHOLD = 60
   let startX = 0
   let startY = 0
+  let pointerId: number | null = null
   let lastWheel = 0
 
   function go(direction: 'left' | 'right') {
@@ -15,18 +16,25 @@ export function useSwipeNavigation() {
     }
   }
 
-  function onTouchStart(e: TouchEvent) {
-    const touch = e.touches[0]
-    startX = touch.clientX
-    startY = touch.clientY
+  function onPointerDown(e: PointerEvent) {
+    if (pointerId !== null) return
+    if (e.pointerType === 'mouse' && e.button !== 0) return
+    pointerId = e.pointerId
+    startX = e.clientX
+    startY = e.clientY
   }
 
-  function onTouchEnd(e: TouchEvent) {
-    const touch = e.changedTouches[0]
-    const dx = touch.clientX - startX
-    const dy = touch.clientY - startY
+  function onPointerUp(e: PointerEvent) {
+    if (pointerId !== e.pointerId) return
+    pointerId = null
+    const dx = e.clientX - startX
+    const dy = e.clientY - startY
     if (Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dx) < Math.abs(dy)) return
     go(dx < 0 ? 'left' : 'right')
+  }
+
+  function onPointerCancel() {
+    pointerId = null
   }
 
   function onWheel(e: WheelEvent) {
@@ -37,5 +45,5 @@ export function useSwipeNavigation() {
     go(e.deltaX > 0 ? 'left' : 'right')
   }
 
-  return { onTouchStart, onTouchEnd, onWheel }
+  return { onPointerDown, onPointerUp, onPointerCancel, onWheel }
 }

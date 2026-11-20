@@ -1,12 +1,13 @@
 <script setup lang="ts">
-const { onTouchStart, onTouchEnd, onWheel } = useSwipeNavigation()
+const { onPointerDown, onPointerUp, onPointerCancel, onWheel } = useSwipeNavigation()
 </script>
 
 <template>
   <div
     class="flex min-h-screen flex-col"
-    @touchstart.passive="onTouchStart"
-    @touchend.passive="onTouchEnd"
+    @pointerdown="onPointerDown"
+    @pointerup="onPointerUp"
+    @pointercancel="onPointerCancel"
     @wheel.passive="onWheel"
   >
     <Navbar />
@@ -18,5 +19,7 @@ const { onTouchStart, onTouchEnd, onWheel } = useSwipeNavigation()
         © {{ new Date().getFullYear() }} Liam Neo C. Salcedo
       </p>
     </footer>
+
+    <MiniCapri />
   </div>
 </template>
