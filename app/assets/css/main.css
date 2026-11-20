@@ -1,10 +1,78 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+  --font-sans: "Lexend", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif;
+
+  /* Avatar color palette */
+  --color-primary: #ff1e6e;      /* hot magenta / pink */
+  --color-primary-deep: #d61463; /* darker magenta (hover) */
+  --color-ink: #09090b;          /* deep black page background */
+  --color-card: #121218;         /* charcoal card surface */
+}
+
+@layer base {
+  body {
+    @apply bg-zinc-50 text-zinc-900 antialiased;
+  }
+
+  .dark body {
+    @apply bg-ink text-zinc-100;
+  }
 }
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  color-scheme: light;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+/* Neon gradient ring for the avatar */
+.avatar-ring {
+  background-image: linear-gradient(
+    to bottom right,
+    #ff1e6e 0%,
+    #34d399 55%,
+    #22d3ee 100%
+  );
+}
+
+/* Directional page transitions */
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition:
+    transform 250ms ease-out,
+    opacity 250ms ease-out;
+}
+
+.slide-left-enter-from {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.slide-left-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.slide-right-enter-from {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translateX(100%);
 }
