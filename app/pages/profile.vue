@@ -16,6 +16,12 @@ const education = [
   {
     title: 'Bachelor of Science in Information Technology (3rd Year)',
     subtitle: 'Caraga State University Main Campus',
+    status: 'Current · College',
+  },
+  {
+    title: 'Senior High School & Junior High School',
+    subtitle: 'Father Saturnino Urios University (FSUU) – Morelos Campus',
+    status: 'Past · High School',
   },
 ]
 
@@ -82,7 +88,12 @@ const cardClass =
           :key="index"
           class="rounded-xl border border-emerald-400/30 bg-emerald-400/5 p-4 dark:bg-emerald-400/10"
         >
-          <p class="font-medium text-zinc-900 dark:text-zinc-100">{{ item.title }}</p>
+          <p
+            class="inline-flex items-center rounded-full border border-[#ff1e6e]/40 bg-[#ff1e6e]/5 px-3 py-0.5 text-[0.62rem] font-bold uppercase tracking-[0.25em] text-[#ff1e6e]"
+          >
+            {{ item.status }}
+          </p>
+          <p class="mt-3 font-medium text-zinc-900 dark:text-zinc-100">{{ item.title }}</p>
           <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{{ item.subtitle }}</p>
         </div>
       </div>
